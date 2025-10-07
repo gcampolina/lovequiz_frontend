@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado - LoveQuiz</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Seu resultado está quase pronto! 🔒</h2>
+    <p>Para ver seu resultado completo, clique abaixo:</p>
+    <button id="pay-btn" class="btn">Ver Resultado (R$4,90)</button>
+    <div id="final-result" style="margin-top:20px;"></div>
+  </div>
+
+  <script>
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const paid = urlParams.get("paid");
+const finalResult = document.getElementById("final-result");
+
+if(paid === "true") {
+  finalResult.innerHTML = "<h3>Parabéns! Sua linguagem do amor é: <strong>Tempo de Qualidade ❤️</strong></h3>";
+  document.getElementById("pay-btn").style.display = "none";
+} else if(paid === "false") {
+  finalResult.innerHTML = "<p>Pagamento não concluído. 😢</p>";
+}
+
+
+
+const payBtn = document.getElementById("pay-btn");
+
+payBtn.addEventListener("click", async () => {
+  payBtn.disabled = true;
+  payBtn.textContent = "Redirecionando para pagamento...";
+
+  try {
+    const response = await fetch("http://localhost:3000/api/payments/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: 4.90 })
+    });
+
+    const data = await response.json();
+    window.location.href = data.checkout_url; // redireciona pro Mercado Pago
+  } catch (err) {
+    console.error(err);
+    alert("Erro ao criar pagamento");
+    payBtn.disabled = false;
+    payBtn.textContent = "Ver Resultado (R$4,90)";
+  }
+});
+</script>
+</body>
+</html>
