@@ -69,7 +69,7 @@ payBtn.addEventListener("click", async () => {
 const urlParams = new URLSearchParams(window.location.search);
 if(urlParams.get("paid") === "true") {
   const maxType = Object.keys(scores).reduce((a,b) => scores[a] > scores[b] ? a : b);
-  specialMessages.style.display = "none";
+  specialMessageEl.style.display = "none";
   finalResult.innerHTML = `<h3>Parabéns! Sua linguagem do amor é: <strong>${maxType} ❤️</strong></h3>`;
   payBtn.style.display = "none";
 }
