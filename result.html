@@ -9,8 +9,8 @@
 </head>
 <body>
   <div class="container">
-    <h2>Seu resultado está quase pronto!</h2>
-    <p>Você está prestes a descobrir algo <strong>único e raro</strong> sobre você!</p>
+    <h2 id="text-1">Seu resultado está quase pronto!</h2>
+    <p id="text-2">Você está prestes a descobrir algo <strong>único e raro</strong> sobre você!</p>
 
     <div class="special-message" id="special-message"></div>
 
@@ -28,6 +28,8 @@
 
 
 <script>
+const text1 = document.getElementById("text-1");
+const text2 = document.getElementById("text-2");
 const scores = JSON.parse(localStorage.getItem("scores")) || {};
 const specialMessageEl = document.getElementById("special-message");
 const finalResult = document.getElementById("final-result");
@@ -69,6 +71,8 @@ payBtn.addEventListener("click", async () => {
 const urlParams = new URLSearchParams(window.location.search);
 if(urlParams.get("paid") === "true") {
   const maxType = Object.keys(scores).reduce((a,b) => scores[a] > scores[b] ? a : b);
+  text1.style.display = "none";
+  text2.style.display = "none";
   specialMessageEl.style.display = "none";
   finalResult.innerHTML = `<h3>Parabéns! Sua linguagem do amor é: <strong>${maxType} ❤️</strong></h3>`;
   payBtn.style.display = "none";
