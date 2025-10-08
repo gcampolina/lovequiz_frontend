@@ -2,34 +2,48 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resultado - LoveQuiz</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
+  
 </head>
 <body>
   <div class="container">
-    <h2>Seu resultado está quase pronto! 🔒</h2>
-    <p>Para ver seu resultado completo, clique abaixo:</p>
-    <button id="pay-btn" class="btn">Ver Resultado (R$4,90)</button>
-    <div id="final-result" style="margin-top:20px;"></div>
+    <h2>Seu resultado está quase pronto!</h2>
+    <p>Você está prestes a descobrir algo <strong>único e raro</strong> sobre você!</p>
+
+    <div class="special-message" id="special-message"></div>
+
+    <button id="pay-btn">Revelar Resultado (por apenas R$3,99)</button>
+    <div id="final-result"></div>
   </div>
 
-  <script>
 
 
-const urlParams = new URLSearchParams(window.location.search);
-const paid = urlParams.get("paid");
+
+
+
+
+
+
+
+<script>
+const scores = JSON.parse(localStorage.getItem("scores")) || {};
+const specialMessageEl = document.getElementById("special-message");
 const finalResult = document.getElementById("final-result");
-
-if(paid === "true") {
-  finalResult.innerHTML = "<h3>Parabéns! Sua linguagem do amor é: <strong>Tempo de Qualidade ❤️</strong></h3>";
-  document.getElementById("pay-btn").style.display = "none";
-} else if(paid === "false") {
-  finalResult.innerHTML = "<p>Pagamento não concluído. 😢</p>";
-}
-
-
-
 const payBtn = document.getElementById("pay-btn");
+
+
+const specialMessages = [
+  "🤩 Seu resultado é EXTREMAMENTE RARO — apenas 8% das pessoas têm essa linguagem do amor!",
+  "😮 Você pertence ao grupo seleto de 10% DAS PESSOAS que possuem esse perfil!",
+  "😱 Incrível! Só 7% DAS PESSOAS compartilham essa linguagem do amor única!",
+  "😱 Este resultado é EXTREMAMENTE ESPECIAL — menos de 1 em cada 10 pessoas o recebe!",
+];
+
+specialMessageEl.textContent = specialMessages[Math.floor(Math.random() * specialMessages.length)];
+
+
 
 payBtn.addEventListener("click", async () => {
   payBtn.disabled = true;
@@ -39,18 +53,25 @@ payBtn.addEventListener("click", async () => {
     const response = await fetch("http://localhost:3000/api/payments/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: 4.90 })
+      body: JSON.stringify({ amount: 3.99 })
     });
-
     const data = await response.json();
-    window.location.href = data.checkout_url; // redireciona pro Mercado Pago
+    window.location.href = data.checkout_url;
   } catch (err) {
     console.error(err);
     alert("Erro ao criar pagamento");
     payBtn.disabled = false;
-    payBtn.textContent = "Ver Resultado (R$4,90)";
+    payBtn.textContent = "Ver Resultado (R$3,99)";
   }
 });
+
+// Mostrar resultado após pagamento
+const urlParams = new URLSearchParams(window.location.search);
+if(urlParams.get("paid") === "true") {
+  const maxType = Object.keys(scores).reduce((a,b) => scores[a] > scores[b] ? a : b);
+  finalResult.innerHTML = `<h3>Parabéns! Sua linguagem do amor é: <strong>${maxType} ❤️</strong></h3>`;
+  payBtn.style.display = "none";
+}
 </script>
 </body>
 </html>

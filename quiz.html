@@ -2,14 +2,29 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Quiz - LoveQuiz</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responda as 10 perguntas do Quiz</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h2>Quiz: Qual sua linguagem do amor?</h2>
+    
+<div class="nav-buttons">
+  <button id="back-btn">⬅ Pergunta anterior</button>
+</div>
+    <h2>Qual é a sua linguagem do amor?</h2>
+
+    <!-- Barra de progresso -->
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    
+
+
     <div id="question-container"></div>
-    <button id="next-btn" class="btn">Próxima</button>
+
+
+
   </div>
   <script src="script.js"></script>
 </body>
