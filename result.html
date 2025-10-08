@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resultado - LoveQuiz</title>
   <link rel="stylesheet" href="style.css">
+  
 </head>
 <body>
   <div class="container">
@@ -12,15 +13,26 @@
     <p>Você está prestes a descobrir algo <strong>único e raro</strong> sobre você!</p>
 
     <div class="special-message" id="special-message"></div>
+
     <button id="pay-btn">Revelar Resultado (por apenas R$3,99)</button>
     <div id="final-result"></div>
   </div>
+
+
+
+
+
+
+
+
+
 
 <script>
 const scores = JSON.parse(localStorage.getItem("scores")) || {};
 const specialMessageEl = document.getElementById("special-message");
 const finalResult = document.getElementById("final-result");
 const payBtn = document.getElementById("pay-btn");
+
 
 const specialMessages = [
   "🤩 Seu resultado é EXTREMAMENTE RARO — apenas 8% das pessoas têm essa linguagem do amor!",
@@ -31,19 +43,8 @@ const specialMessages = [
 
 specialMessageEl.textContent = specialMessages[Math.floor(Math.random() * specialMessages.length)];
 
-// FUNÇÃO PARA VERIFICAR STATUS DO PAGAMENTO
-async function verificarPagamento(payment_id) {
-  try {
-    const response = await fetch(`https://lovequiz-backend.vercel.app/api/check-status?payment_id=${payment_id}`);
-    const data = await response.json();
-    return data.status === "approved";
-  } catch (err) {
-    console.error("Erro ao verificar pagamento:", err);
-    return false;
-  }
-}
 
-// BOTÃO DE PAGAMENTO
+
 payBtn.addEventListener("click", async () => {
   payBtn.disabled = true;
   payBtn.textContent = "Redirecionando para pagamento...";
@@ -55,10 +56,7 @@ payBtn.addEventListener("click", async () => {
       body: JSON.stringify({ amount: 3.99 })
     });
     const data = await response.json();
-
-    // Redireciona pro checkout do Mercado Pago
     window.location.href = data.checkout_url;
-
   } catch (err) {
     console.error(err);
     alert("Erro ao criar pagamento");
@@ -67,27 +65,13 @@ payBtn.addEventListener("click", async () => {
   }
 });
 
-// CHECA PAGAMENTO APÓS REDIRECIONAMENTO
+// Mostrar resultado após pagamento
 const urlParams = new URLSearchParams(window.location.search);
-const paymentId = urlParams.get("payment_id"); // ex: ?payment_id=12345
-
-if(paymentId) {
-  (async () => {
-    payBtn.disabled = true;
-    payBtn.textContent = "Verificando pagamento...";
-    const pago = await verificarPagamento(paymentId);
-
-    if(pago) {
-      const maxType = Object.keys(scores).reduce((a,b) => scores[a] > scores[b] ? a : b);
-      specialMessageEl.style.display = "none";
-      finalResult.innerHTML = `<h3>Parabéns! Sua linguagem do amor é: <strong>${maxType} ❤️</strong></h3>`;
-      payBtn.style.display = "none";
-    } else {
-      alert("Pagamento não confirmado. Tente novamente.");
-      payBtn.disabled = false;
-      payBtn.textContent = "Ver Resultado (R$3,99)";
-    }
-  })();
+if(urlParams.get("paid") === "true") {
+  const maxType = Object.keys(scores).reduce((a,b) => scores[a] > scores[b] ? a : b);
+  specialMessages.style.display = "none";
+  finalResult.innerHTML = `<h3>Parabéns! Sua linguagem do amor é: <strong>${maxType} ❤️</strong></h3>`;
+  payBtn.style.display = "none";
 }
 </script>
 </body>
