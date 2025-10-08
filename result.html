@@ -50,7 +50,7 @@ payBtn.addEventListener("click", async () => {
   payBtn.textContent = "Redirecionando para pagamento...";
 
   try {
-    const response = await fetch("https://lovequiz-backend.vercel.app/api/payments/createPayment", {
+    const response = await fetch("https://lovequiz-backend.vercel.app/api/createPayment", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ amount: 3.99 })
