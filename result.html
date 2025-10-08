@@ -16,6 +16,7 @@
 
     <button id="pay-btn">Revelar Resultado (por apenas R$3,99)</button>
     <div id="final-result"></div>
+    <a href="index.html"><button id="refaz-btn">Refazer o quiz</button></a>
   </div>
 
 
@@ -30,6 +31,7 @@
 <script>
 const text1 = document.getElementById("text-1");
 const text2 = document.getElementById("text-2");
+const refazBtn = document.getElementById("refaz-btn");
 const scores = JSON.parse(localStorage.getItem("scores")) || {};
 const specialMessageEl = document.getElementById("special-message");
 const finalResult = document.getElementById("final-result");
@@ -76,6 +78,7 @@ if(urlParams.get("paid") === "true") {
   specialMessageEl.style.display = "none";
   finalResult.innerHTML = `<h3>Parabéns! Sua linguagem do amor é: <strong>${maxType} ❤️</strong></h3>`;
   payBtn.style.display = "none";
+  refazBtn.style.display = "block";
 }
 </script>
 </body>
