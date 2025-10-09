@@ -50,8 +50,7 @@ body {
 }
 
 #question-container button:hover {
-  background: #ff6b81;
-  color: #fff;
+
   transform: scale(1.03);
 }
 
@@ -255,5 +254,37 @@ body {
   #back-btn {
     font-size: 0.95rem;
     padding: 10px;
+  }
+}
+
+
+.quiz-popup {
+  position: absolute; /* dentro do container */
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff4081;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  font-weight: bold;
+  z-index: 9999;
+  opacity: 0;
+  animation: pop-up 3s ease-out forwards; /* 3s na tela */
+}
+
+@keyframes pop-up {
+  0% { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+  10% { opacity: 1; }   /* aparece rápido */
+  90% { opacity: 1; }   /* fica visível */
+  100% { transform: translateX(-50%) translateY(-20px); opacity: 0; } /* desaparece */
+}
+
+/* Mobile */
+@media screen and (max-width: 480px) {
+  .quiz-popup {
+    font-size: 0.9rem;
+    padding: 8px 15px;
   }
 }

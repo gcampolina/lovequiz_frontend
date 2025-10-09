@@ -67,37 +67,53 @@ payBtn.addEventListener("click", async () => {
 
 // ✅ Checa se o pagamento foi realmente aprovado
 const urlParams = new URLSearchParams(window.location.search);
-const paymentId = urlParams.get("payment_id");
+const token = urlParams.get("token"); // agora usamos "token" ao invés de payment_id
 
-if (paymentId) {
-  checkPaymentStatus(paymentId);
+if (token) {
+  validateToken(token);
+} else {
+  alert("Pagamento não detectado. Por favor, realize o pagamento.");
 }
 
-async function checkPaymentStatus(paymentId) {
+async function validateToken(token) {
   try {
-    const res = await fetch(`https://lovequiz-backend.vercel.app/api/check-status/${paymentId}`);
+    const res = await fetch(`https://lovequiz-backend.vercel.app/api/validate-token/${token}`);
     const data = await res.json();
 
-    if (data.status === "approved") {
-      showResult();
+    if (data.valid) {
+      showResult(); // Mostra o resultado só se o token for válido
     } else {
-      console.log("Pagamento ainda não aprovado:", data.status);
+      alert("Pagamento não confirmado. Por favor, complete o pagamento para ver o resultado.");
     }
   } catch (err) {
-    console.error("Erro ao verificar pagamento:", err);
+    console.error("Erro ao validar token:", err);
+    alert("Erro na validação do pagamento.");
   }
 }
+
+
+
+const loveDescriptions = {
+  Palavras: "Você se sente mais amado quando recebe palavras carinhosas e elogios sinceros. 💌",
+  Atos: "Para você, ações falam mais que palavras — pequenos gestos de cuidado fazem toda a diferença. 🛠️",
+  Presentes: "Ganhar ou receber presentes, mesmo pequenos, faz você se sentir especial e valorizado. 🎁",
+  Tempo: "O que mais importa é passar tempo de qualidade junto da pessoa que ama. ⏳",
+  Toque: "Carinho físico, abraços e gestos de afeto são o que fazem seu coração bater mais forte. 🤗",
+};
+
 
 function showResult() {
   const maxType = Object.keys(scores).reduce((a,b) => scores[a] > scores[b] ? a : b);
   text1.style.display = "none";
   text2.style.display = "none";
   specialMessageEl.style.display = "none";
-  finalResult.innerHTML = `<h3>Parabéns! Sua linguagem do amor é: <strong>${maxType} ❤️</strong></h3>`;
+  finalResult.innerHTML = `<h3>Parabéns! Sua linguagem do amor é: <strong>${maxType} ❤️</strong></h3>
+   <p>${loveDescriptions[maxType]}</p>
+  `;
   payBtn.style.display = "none";
   refazBtn.style.display = "block";
 }
 </script>
-
+<script src="popups.js" defer></script>
 </body>
 </html>

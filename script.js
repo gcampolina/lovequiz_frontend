@@ -1,108 +1,110 @@
 const questions = [
   {
-    question: "Você se sente mais amado quando seu parceiro...",
+    question: "Quando você recebe um elogio inesperado, como se sente?",
     answers: [
-      { text: "Diz palavras gentis", value: "Palavras" },
-      { text: "Faz algo por você", value: "Atos" },
-      { text: "Te dá um presente", value: "Presentes" },
-      { text: "Passa tempo junto", value: "Tempo" },
-      { text: "Te toca carinhosamente", value: "Toque" },
+      { text: "Super valorizado pelas palavras", value: "Palavras" },
+      { text: "Feliz por alguém agir por mim", value: "Atos" },
+      { text: "Animado por ganhar algo especial", value: "Presentes" },
+      { text: "Aproveitando o tempo juntos", value: "Tempo" },
+      { text: "Aquece meu coração com um abraço", value: "Toque" },
     ]
   },
   {
-    question: "Você demonstra amor mais através de...",
+    question: "Seu parceiro(a) quer te surpreender. O que você mais gostaria?",
     answers: [
-      { text: "Palavras", value: "Palavras" },
-      { text: "Ações", value: "Atos" },
-      { text: "Presentes", value: "Presentes" },
-      { text: "Tempo juntos", value: "Tempo" },
-      { text: "Toque", value: "Toque" },
+      { text: "Uma carta ou mensagem carinhosa", value: "Palavras" },
+      { text: "Alguém fazendo algo por mim sem eu pedir", value: "Atos" },
+      { text: "Um presente inesperado e significativo", value: "Presentes" },
+      { text: "Um passeio ou atividade juntos", value: "Tempo" },
+      { text: "Um abraço apertado ou carinho físico", value: "Toque" },
     ]
   },
   {
-    question: "Quando estou triste, prefiro que meu parceiro(a)...",
+    question: "Em um dia difícil, o que mais te ajuda a se sentir amado?",
     answers: [
-      { text: "Me escute atentamente", value: "Palavras" },
-      { text: "Me distraia com algo divertido", value: "Atos" },
-      { text: "Me dê espaço", value: "Tempo" },
-      { text: "Me ajude a resolver o problema", value: "Atos" },
-      { text: "Me abrace", value: "Toque" },
+      { text: "Palavras de incentivo e apoio", value: "Palavras" },
+      { text: "Alguém fazendo algo concreto pra me ajudar", value: "Atos" },
+      { text: "Um presente para animar meu dia", value: "Presentes" },
+      { text: "Passar tempo de qualidade juntos", value: "Tempo" },
+      { text: "Um abraço ou toque reconfortante", value: "Toque" },
     ]
   },
   {
-    question: "Qual gesto mais te faz sorrir?",
+    question: "Qual dessas ações faria você sorrir mais?",
     answers: [
-      { text: "Elogios sinceros", value: "Palavras" },
-      { text: "Ajudar em tarefas", value: "Atos" },
-      { text: "Receber presentes inesperados", value: "Presentes" },
-      { text: "Sair para passear juntos", value: "Tempo" },
-      { text: "Abraços e beijos", value: "Toque" },
+      { text: "Receber elogios sinceros", value: "Palavras" },
+      { text: "Alguém ajudando sem eu pedir", value: "Atos" },
+      { text: "Um presente inesperado", value: "Presentes" },
+      { text: "Uma atividade divertida juntos", value: "Tempo" },
+      { text: "Um carinho físico espontâneo", value: "Toque" },
     ]
   },
   {
-    question: "Para você, um presente perfeito é...",
+    question: "Se pudesse escolher, qual gesto te deixaria mais próximo(a) do seu parceiro?",
     answers: [
-      { text: "Uma carta ou bilhete", value: "Palavras" },
-      { text: "Um favor especial", value: "Atos" },
-      { text: "Um presente material", value: "Presentes" },
-      { text: "Um dia juntos", value: "Tempo" },
-      { text: "Um abraço apertado", value: "Toque" },
-    ]
-  },
-  {
-    question: "Qual demonstração de amor te toca mais?",
-    answers: [
-      { text: "Palavras de incentivo", value: "Palavras" },
-      { text: "Ações de cuidado", value: "Atos" },
-      { text: "Pequenos presentes", value: "Presentes" },
-      { text: "Momentos de qualidade", value: "Tempo" },
-      { text: "Contato físico", value: "Toque" },
-    ]
-  },
-  {
-    question: "Se sente mais amado quando...",
-    answers: [
-      { text: "Ouve palavras carinhosas", value: "Palavras" },
-      { text: "Recebe ajuda prática", value: "Atos" },
-      { text: "Ganha algo especial", value: "Presentes" },
-      { text: "Passa tempo juntos", value: "Tempo" },
-      { text: "Recebe carinho físico", value: "Toque" },
-    ]
-  },
-  {
-    question: "Você prefere passar tempo com seu parceiro...",
-    answers: [
-      { text: "Conversando sobre sentimentos", value: "Palavras" },
-      { text: "Fazendo atividades juntos", value: "Atos" },
-      { text: "Trocar pequenos presentes", value: "Presentes" },
-      { text: "Apenas curtindo a companhia", value: "Tempo" },
-      { text: "Abraçando ou segurando a mão", value: "Toque" },
-    ]
-  },
-  {
-    question: "Qual destas atitudes te deixa mais feliz?",
-    answers: [
-      { text: "Receber elogios", value: "Palavras" },
-      { text: "Receber ajuda prática", value: "Atos" },
-      { text: "Ganhar presentes inesperados", value: "Presentes" },
-      { text: "Ter momentos de qualidade juntos", value: "Tempo" },
-      { text: "Receber carinho físico", value: "Toque" },
-    ]
-  },
-  {
-    question: "O que mais te aproxima do parceiro?",
-    answers: [
-      { text: "Conversas profundas", value: "Palavras" },
-      { text: "Gestos de cuidado", value: "Atos" },
+      { text: "Conversas sinceras e profundas", value: "Palavras" },
+      { text: "Alguém cuidando de você de forma prática", value: "Atos" },
       { text: "Presentes que mostram atenção", value: "Presentes" },
-      { text: "Momentos juntos", value: "Tempo" },
+      { text: "Passar tempo sem distrações, só nós dois", value: "Tempo" },
       { text: "Contato físico carinhoso", value: "Toque" },
+    ]
+  },
+  {
+    question: "Você prefere demonstrar amor através de...",
+    answers: [
+      { text: "Palavras gentis e motivadoras", value: "Palavras" },
+      { text: "Fazendo algo útil para a outra pessoa", value: "Atos" },
+      { text: "Presentes que surpreendem", value: "Presentes" },
+      { text: "Momentos de qualidade juntos", value: "Tempo" },
+      { text: "Toques e abraços", value: "Toque" },
+    ]
+  },
+  {
+    question: "O que faz você se sentir mais especial em um relacionamento?",
+    answers: [
+      { text: "Palavras que expressam carinho e apreço", value: "Palavras" },
+      { text: "Atos de cuidado inesperados", value: "Atos" },
+      { text: "Receber um presente pensado com carinho", value: "Presentes" },
+      { text: "Passar um dia inteiro juntos", value: "Tempo" },
+      { text: "Receber carinho físico espontâneo", value: "Toque" },
+    ]
+  },
+  {
+    question: "Você gosta quando alguém demonstra amor de forma...",
+    answers: [
+      { text: "Falando o que sente por você", value: "Palavras" },
+      { text: "Fazendo algo que ajuda sua rotina", value: "Atos" },
+      { text: "Com pequenos presentes e surpresas", value: "Presentes" },
+      { text: "Apenas compartilhando momentos juntos", value: "Tempo" },
+      { text: "Com abraços e toques carinhosos", value: "Toque" },
+    ]
+  },
+  {
+    question: "Durante uma comemoração especial, o que você prefere?",
+    answers: [
+      { text: "Discursos ou palavras emocionantes", value: "Palavras" },
+      { text: "Que façam algo especial pra você", value: "Atos" },
+      { text: "Ganhar algo significativo", value: "Presentes" },
+      { text: "Viver o momento com qualidade", value: "Tempo" },
+      { text: "Receber abraços e carinho físico", value: "Toque" },
+    ]
+  },
+  {
+    question: "Qual desses gestos faz você sentir mais conexão?",
+    answers: [
+      { text: "Conversas abertas e sinceras", value: "Palavras" },
+      { text: "Alguém cuidando de você de forma prática", value: "Atos" },
+      { text: "Presentes que demonstram atenção", value: "Presentes" },
+      { text: "Momentos juntos sem distrações", value: "Tempo" },
+      { text: "Contato físico constante", value: "Toque" },
     ]
   },
 ];
 
 let currentQuestion = 0;
 let scores = { Palavras:0, Atos:0, Presentes:0, Tempo:0, Toque:0 };
+
+
 
 
 const backBtn = document.getElementById("back-btn");
