@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resultado - LoveQuiz</title>
   <link rel="stylesheet" href="style.css">
-  
 </head>
 <body>
   <div class="container">
@@ -16,101 +15,102 @@
 
     <button id="pay-btn">Revelar Resultado (por apenas R$3,99)</button>
     <div id="final-result"></div>
-    <a href="index.html"><button id="refaz-btn">Refazer o quiz</button></a>
+    <a href="index.html">
+      <button id="refaz-btn">Refazer o quiz</button>
+    </a>
   </div>
 
+  <script>
+    const text1 = document.getElementById("text-1");
+    const text2 = document.getElementById("text-2");
+    const refazBtn = document.getElementById("refaz-btn");
+    const scores = JSON.parse(localStorage.getItem("scores")) || {};
+    const specialMessageEl = document.getElementById("special-message");
+    const finalResult = document.getElementById("final-result");
+    const payBtn = document.getElementById("pay-btn");
 
+    const specialMessages = [
+      "🤩 Seu resultado é EXTREMAMENTE RARO — apenas 8% das pessoas têm essa linguagem do amor!",
+      "😮 Você pertence ao grupo seleto de 10% DAS PESSOAS que possuem esse perfil!",
+      "😱 Incrível! Só 7% DAS PESSOAS compartilham essa linguagem do amor única!",
+      "😱 Este resultado é EXTREMAMENTE ESPECIAL — menos de 1 em cada 10 pessoas o recebe!",
+    ];
 
+    // Define mensagem aleatória
+    specialMessageEl.textContent = specialMessages[
+      Math.floor(Math.random() * specialMessages.length)
+    ];
 
+    // Clique no botão de pagamento
+    payBtn.addEventListener("click", async () => {
+      payBtn.disabled = true;
+      payBtn.textContent = "Redirecionando para pagamento...";
 
-
-
-
-
-
-<script>
-const text1 = document.getElementById("text-1");
-const text2 = document.getElementById("text-2");
-const refazBtn = document.getElementById("refaz-btn");
-const scores = JSON.parse(localStorage.getItem("scores")) || {};
-const specialMessageEl = document.getElementById("special-message");
-const finalResult = document.getElementById("final-result");
-const payBtn = document.getElementById("pay-btn");
-
-const specialMessages = [
-  "🤩 Seu resultado é EXTREMAMENTE RARO — apenas 8% das pessoas têm essa linguagem do amor!",
-  "😮 Você pertence ao grupo seleto de 10% DAS PESSOAS que possuem esse perfil!",
-  "😱 Incrível! Só 7% DAS PESSOAS compartilham essa linguagem do amor única!",
-  "😱 Este resultado é EXTREMAMENTE ESPECIAL — menos de 1 em cada 10 pessoas o recebe!",
-];
-
-specialMessageEl.textContent = specialMessages[Math.floor(Math.random() * specialMessages.length)];
-
-payBtn.addEventListener("click", async () => {
-  payBtn.disabled = true;
-  payBtn.textContent = "Redirecionando para pagamento...";
-
-  try {
-    const response = await fetch("https://lovequiz-backend.vercel.app/api/create-payment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      try {
+        const response = await fetch("https://lovequiz-backend.vercel.app/api/create-payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
+        window.location.href = data.checkout_url;
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao criar pagamento");
+        payBtn.disabled = false;
+        payBtn.textContent = "Revelar Resultado (R$3,99)";
+      }
     });
-    const data = await response.json();
-    window.location.href = data.checkout_url;
-  } catch (err) {
-    console.error(err);
-    alert("Erro ao criar pagamento");
-    payBtn.disabled = false;
-    payBtn.textContent = "Revelar Resultado (R$3,99)";
-  }
-});
 
-// ✅ Checa se o pagamento foi realmente aprovado
-const urlParams = new URLSearchParams(window.location.search);
-const paymentId = urlParams.get("payment_id");
+    // Checa status do pagamento
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentId = urlParams.get("payment_id");
 
-if (paymentId) {
-  checkPaymentStatus(paymentId);
-}
-
-async function checkPaymentStatus(paymentId) {
-  try {
-    const res = await fetch(`https://lovequiz-backend.vercel.app/api/check-status/${paymentId}`);
-    const data = await res.json();
-
-    if (data.status === "approved") {
-      showResult();
-    } else {
-      console.log("Pagamento ainda não aprovado:", data.status);
+    if (paymentId) {
+      checkPaymentStatus(paymentId);
     }
-  } catch (err) {
-    console.error("Erro ao verificar pagamento:", err);
-  }
-}
 
+    async function checkPaymentStatus(paymentId) {
+      try {
+        const res = await fetch(`https://lovequiz-backend.vercel.app/api/check-status/${paymentId}`);
+        const data = await res.json();
 
+        if (data.status === "approved") {
+          showResult();
+        } else {
+          console.log("Pagamento ainda não aprovado:", data.status);
+        }
+      } catch (err) {
+        console.error("Erro ao verificar pagamento:", err);
+      }
+    }
 
-const loveDescriptions = {
-  Palavras: "Você se sente mais amado quando recebe palavras carinhosas e elogios sinceros. 💌",
-  Atos: "Para você, ações falam mais que palavras — pequenos gestos de cuidado fazem toda a diferença. 🛠️",
-  Presentes: "Ganhar ou receber presentes, mesmo pequenos, faz você se sentir especial e valorizado. 🎁",
-  Tempo: "O que mais importa é passar tempo de qualidade junto da pessoa que ama. ⏳",
-  Toque: "Carinho físico, abraços e gestos de afeto são o que fazem seu coração bater mais forte. 🤗",
-};
+    // Descrições das linguagens do amor
+    const loveDescriptions = {
+      Palavras: "Você se sente mais amado quando recebe palavras carinhosas e elogios sinceros. 💌",
+      Atos: "Para você, ações falam mais que palavras — pequenos gestos de cuidado fazem toda a diferença. 🛠️",
+      Presentes: "Ganhar ou receber presentes, mesmo pequenos, faz você se sentir especial e valorizado. 🎁",
+      Tempo: "O que mais importa é passar tempo de qualidade junto da pessoa que ama. ⏳",
+      Toque: "Carinho físico, abraços e gestos de afeto são o que fazem seu coração bater mais forte. 🤗",
+    };
 
+    // Mostra o resultado após pagamento
+    function showResult() {
+      const maxType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+      
+      text1.style.display = "none";
+      text2.style.display = "none";
+      specialMessageEl.style.display = "none";
 
-function showResult() {
-  const maxType = Object.keys(scores).reduce((a,b) => scores[a] > scores[b] ? a : b);
-  text1.style.display = "none";
-  text2.style.display = "none";
-  specialMessageEl.style.display = "none";
-  finalResult.innerHTML = `<h3>Parabéns! Sua linguagem do amor é: <strong>${maxType} ❤️</strong></h3>
-   <p>${loveDescriptions[maxType]}</p>
-  `;
-  payBtn.style.display = "none";
-  refazBtn.style.display = "block";
-}
-</script>
-<script src="popups.js" defer></script>
+      finalResult.innerHTML = `
+        <h3>Parabéns! Sua linguagem do amor é: <strong>${maxType} ❤️</strong></h3>
+        <p>${loveDescriptions[maxType]}</p>
+      `;
+
+      payBtn.style.display = "none";
+      refazBtn.style.display = "block";
+    }
+  </script>
+
+  <script src="popups.js" defer></script>
 </body>
 </html>
