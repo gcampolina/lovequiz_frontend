@@ -67,27 +67,24 @@ payBtn.addEventListener("click", async () => {
 
 // ✅ Checa se o pagamento foi realmente aprovado
 const urlParams = new URLSearchParams(window.location.search);
-const token = urlParams.get("token"); // agora usamos "token" ao invés de payment_id
+const paymentId = urlParams.get("payment_id");
 
-if (token) {
-  validateToken(token);
-} else {
-  alert("Pagamento não detectado. Por favor, realize o pagamento.");
+if (paymentId) {
+  checkPaymentStatus(paymentId);
 }
 
-async function validateToken(token) {
+async function checkPaymentStatus(paymentId) {
   try {
-    const res = await fetch(`https://lovequiz-backend.vercel.app/api/validate-token/${token}`);
+    const res = await fetch(`https://lovequiz-backend.vercel.app/api/check-status/${paymentId}`);
     const data = await res.json();
 
-    if (data.valid) {
-      showResult(); // Mostra o resultado só se o token for válido
+    if (data.status === "approved") {
+      showResult();
     } else {
-      alert("Pagamento não confirmado. Por favor, complete o pagamento para ver o resultado.");
+      console.log("Pagamento ainda não aprovado:", data.status);
     }
   } catch (err) {
-    console.error("Erro ao validar token:", err);
-    alert("Erro na validação do pagamento.");
+    console.error("Erro ao verificar pagamento:", err);
   }
 }
 
