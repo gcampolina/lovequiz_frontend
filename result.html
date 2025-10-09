@@ -13,7 +13,7 @@
 
     <div class="special-message" id="special-message"></div>
 
-    <button id="pay-btn">Revelar Resultado (por apenas R$3,99)</button>
+    <button id="pay-btn">Revelar Resultado (por apenas R$1,99)</button>
     <div id="final-result"></div>
     <a href="index.html">
       <button id="refaz-btn">Refazer o quiz</button>
@@ -57,7 +57,7 @@
         console.error(err);
         alert("Erro ao criar pagamento");
         payBtn.disabled = false;
-        payBtn.textContent = "Revelar Resultado (R$3,99)";
+        payBtn.textContent = "Revelar Resultado (R$1,99)";
       }
     });
 
